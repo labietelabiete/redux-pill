@@ -1,5 +1,55 @@
 `#javascript` `#reactjs` `#redux` `#master-in-software-engineering`
 
+# First notes
+
+## Pages
+
+- Home: Contains general structure, search component
+- Dashboard: Contains the filters and filters result
+
+## Components
+
+- Search bar
+- Filters
+
+## Search bar
+
+- After press search button, it should redirect to the dashboard with the search string
+
+## Filters form
+
+1. Type of home
+   - Flat/Apartment
+   - House
+   - Duplex
+   - Penthouse
+2. Bedrooms
+   - 1, 2, 3, 4 or +
+3. Bathrooms
+   - 1, 2, 3 or +
+4. Equipment
+5. Conditions
+   - New homes
+   - Good condition
+   - Needs renovation
+6. Price Range (min, max)
+7. Publication date
+8. More Filters
+   - Pets allowed
+   - Lift
+   - Garden
+   - Air conditioning
+   - Swimming pool
+   - Terrace
+
+# Extras
+
+Save filters on local Storage
+
+Save filters on website url
+
+Debounce mechanism
+
 # Redux Pill
 
 <p>
@@ -12,11 +62,18 @@
 
 ## Index <!-- omit in toc -->
 
-- [Requirements](#requirements)
-- [Repository](#repository)
-- [Technologies used](#technologies-used)
-- [Project delivery](#project-delivery)
-- [Resources](#resources)
+- [First notes](#first-notes)
+  - [Pages](#pages)
+  - [Components](#components)
+  - [Search bar](#search-bar)
+  - [Filters form](#filters-form)
+- [Extras](#extras)
+- [Redux Pill](#redux-pill)
+  - [Requirements](#requirements)
+  - [Repository](#repository)
+  - [Technologies used](#technologies-used)
+  - [Project delivery](#project-delivery)
+  - [Resources](#resources)
 
 ## Requirements
 
@@ -25,7 +82,6 @@
 - For asynchronous calls to the backend API, you should use the Redux Thunk library.
 - All the code, including comments, needs to be written in English
 - You must use semantic HTML5 elements for all the contents of the application, main, section, form, input types, etc
-
 
 ## Repository
 
@@ -50,7 +106,6 @@ To create a fork on GitHub is as easy as clicking the “fork” button on the r
 \* Redux Thunk
 
 \* LocalStorage
-
 
 ## Project delivery
 
