@@ -1,12 +1,23 @@
 import React from "react";
-import PropertyCard from "../PropertyCard/PropertyCard";
+import PropertyRow from "../PropertyRow";
+
 
 export default function PropertiesTable({ dataList }) {
   return (
-    <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">Address</th>
+          <th scope="col">Price</th>
+          <th scope="col">Options</th>
+        </tr>
+      </thead>
+      <tbody>
       {dataList.map((item) => (
-        <PropertyCard item={item} key={item.id} />
+        <PropertyRow item={item} key={item.id} />
       ))}
-    </div>
+      </tbody>
+    </table>
   );
 }
