@@ -1,10 +1,9 @@
 import React from "react";
 import PropertyRow from "../PropertyRow";
 
-
 export default function PropertiesTable({ dataList }) {
   return (
-    <table class="table">
+    <table className="table">
       <thead>
         <tr>
           <th scope="col"></th>
@@ -14,9 +13,9 @@ export default function PropertiesTable({ dataList }) {
         </tr>
       </thead>
       <tbody>
-      {dataList.map((item) => (
-        <PropertyRow item={item} key={item.id} />
-      ))}
+        {dataList.map((item) => (
+          <PropertyRow item={item} key={item.id} />
+        ))}
       </tbody>
     </table>
   );

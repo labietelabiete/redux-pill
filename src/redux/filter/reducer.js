@@ -5,8 +5,10 @@ import initialState from "./state";
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_FILTER:
-      // TODO
-      return state + 1;
+      return {
+        ...state,
+        ...action.payload,
+      };
     case RESET_FILTER:
       return initialState;
     default:

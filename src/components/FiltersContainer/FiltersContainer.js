@@ -1,15 +1,18 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
-import FormLabel from "@material-ui/core/FormLabel";
+// import FormLabel from "@material-ui/core/FormLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
+// import FormHelperText from "@material-ui/core/FormHelperText";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import { Grid, InputLabel, MenuItem, Paper, Select } from "@material-ui/core";
+
+import { updateFilter, resetFilter } from "../../redux/filter/actions";
 
 const useStyles = makeStyles({
   root: {
@@ -24,10 +27,41 @@ function valuetext(value) {
 export default function FiltersContainer() {
   const classes = useStyles();
   const [value, setValue] = React.useState([50000, 500000]);
+  const dispatch = useDispatch();
+  const filterState = useSelector((state) => state.filter);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const handleTypeOfHouse = (event) => {
+    dispatch(
+      updateFilter({
+        ...filterState,
+        typeOfHome: {
+          ...filterState.typeOfHome,
+          [event.target.name]: event.target.checked,
+        },
+      })
+    );
+  };
+
+  const handleBedrooms = (event) => {
+    const target =
+      event.target.name === undefined
+        ? event.target.parentElement.name
+        : event.target.name;
+    dispatch(
+      updateFilter({
+        ...filterState,
+        bedrooms: {
+          ...filterState.bedrooms,
+          [target]: !filterState.bedrooms[target],
+        },
+      })
+    );
+  };
+
   return (
     <Paper elevation={3}>
       <FormControl>
@@ -40,53 +74,86 @@ export default function FiltersContainer() {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={true}
-                    onChange={() => {}}
-                    name="flat-apartment"
+                    checked={filterState.typeOfHome.flatApartment}
+                    onChange={handleTypeOfHouse}
+                    name="flatApartment"
                   />
                 }
                 label="Flat/Apartment"
               />
               <FormControlLabel
                 control={
-                  <Checkbox checked={true} onChange={() => {}} name="duplex" />
+                  <Checkbox
+                    checked={filterState.typeOfHome.duplex}
+                    onChange={handleTypeOfHouse}
+                    name="duplex"
+                  />
                 }
                 label="Duplex"
               />
               <FormControlLabel
                 control={
-                  <Checkbox checked={true} onChange={() => {}} name="house" />
+                  <Checkbox
+                    checked={filterState.typeOfHome.house}
+                    onChange={handleTypeOfHouse}
+                    name="house"
+                  />
                 }
                 label="House"
               />
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={true}
-                    onChange={() => {}}
+                    checked={filterState.typeOfHome.penthouse}
+                    onChange={handleTypeOfHouse}
                     name="penthouse"
                   />
                 }
-                label="Duplex"
+                label="Penthouse"
               />
             </Grid>
             {/* </div> */}
             {/* <div className="col-3"> */}
             <Grid item xs={3}>
               <h4>Bedrooms</h4>
-              <Button variant="contained" color="primary">
+              <Button
+                variant="contained"
+                color={filterState.bedrooms[0] ? "primary" : "secondary"}
+                onClick={handleBedrooms}
+                name={0}
+              >
                 0 (studio flat)
               </Button>
-              <Button variant="contained" color="primary">
+              <Button
+                variant="contained"
+                color={filterState.bedrooms[1] ? "primary" : "secondary"}
+                onClick={handleBedrooms}
+                name={1}
+              >
                 1
               </Button>
-              <Button variant="contained" color="primary">
+              <Button
+                variant="contained"
+                color={filterState.bedrooms[2] ? "primary" : "secondary"}
+                onClick={handleBedrooms}
+                name={2}
+              >
                 2
               </Button>
-              <Button variant="contained" color="primary">
+              <Button
+                variant="contained"
+                color={filterState.bedrooms[3] ? "primary" : "secondary"}
+                onClick={handleBedrooms}
+                name={3}
+              >
                 3
               </Button>
-              <Button variant="contained" color="primary">
+              <Button
+                variant="contained"
+                color={filterState.bedrooms[4] ? "primary" : "secondary"}
+                onClick={handleBedrooms}
+                name={4}
+              >
                 4 or +
               </Button>
             </Grid>
