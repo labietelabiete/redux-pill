@@ -17,7 +17,7 @@ const initialState = {
     1: false,
     2: false,
   },
-  equipment: "",
+  equipment: "First option",
   condition: {
     newHomes: false,
     goodCondition: false,

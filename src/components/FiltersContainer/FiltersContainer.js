@@ -78,6 +78,27 @@ export default function FiltersContainer() {
     );
   };
 
+  const handleEquipment = (event) => {
+    dispatch(
+      updateFilter({
+        ...filterState,
+        equipment: event.target.value,
+      })
+    );
+  };
+
+  const handleCondition = (event) => {
+    dispatch(
+      updateFilter({
+        ...filterState,
+        condition: {
+          ...filterState.condition,
+          [event.target.name]: event.target.checked,
+        },
+      })
+    );
+  };
+
   return (
     <Paper elevation={3}>
       <FormControl>
@@ -206,15 +227,13 @@ export default function FiltersContainer() {
             {/* <div className="col-5"> */}
             <Grid item xs={4}>
               <h4>Equipment</h4>
-              <FormControl>
-                <Select value={"indifferent"} onChange={() => {}}>
-                  <MenuItem value={"indifferent"}>Indifferent</MenuItem>
-                  <MenuItem value={20}>
-                    Twenty dsfgsfsdfsdffsdfsdfsdfsdf
-                  </MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                </Select>
-              </FormControl>
+              <Select value={filterState.equipment} onChange={handleEquipment}>
+                <MenuItem value={"First option"}>Indifferent</MenuItem>
+                <MenuItem value={"Second option"}>
+                  Twenty dsfgsfsdfsdffsdfsdfsdfsdf
+                </MenuItem>
+                <MenuItem value={"Third option"}>Thirty</MenuItem>
+              </Select>
               {/* </div> */}
             </Grid>
 
@@ -224,9 +243,9 @@ export default function FiltersContainer() {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={true}
-                    onChange={() => {}}
-                    name="new-homes"
+                    checked={filterState.condition.newHomes}
+                    onChange={handleCondition}
+                    name="newHomes"
                   />
                 }
                 label="New homes"
@@ -234,9 +253,9 @@ export default function FiltersContainer() {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={true}
-                    onChange={() => {}}
-                    name="good-condition"
+                    checked={filterState.condition.goodCondition}
+                    onChange={handleCondition}
+                    name="goodCondition"
                   />
                 }
                 label="Good condition"
@@ -244,9 +263,9 @@ export default function FiltersContainer() {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={true}
-                    onChange={() => {}}
-                    name="needs-renovation"
+                    checked={filterState.condition.needsRenovation}
+                    onChange={handleCondition}
+                    name="needsRenovation"
                   />
                 }
                 label="Needs renovation"
