@@ -14,6 +14,8 @@ import { Grid, InputLabel, MenuItem, Paper, Select } from "@material-ui/core";
 
 import { updateFilter, resetFilter } from "../../redux/filter/actions";
 
+import "./FiltersContainer.scss";
+
 const useStyles = makeStyles({
   slider: {
     width: "80%",
@@ -23,7 +25,7 @@ const useStyles = makeStyles({
 function valuetext(value) {
   console.log(value);
   console.log(`${value / 1000}k`);
-  return `${value / 1000}k`;
+  return `$${value / 1000}k`;
 }
 
 export default function FiltersContainer() {
@@ -130,14 +132,15 @@ export default function FiltersContainer() {
     <Paper elevation={3}>
       <FormControl>
         <FormGroup>
-          <Grid container justifyContent="center" spacing={2}>
+          <Grid container spacing={0}>
             {/* <div className="row"> */}
             {/* <div className="col-2"> */}
-            <Grid item xs={3}>
-              <h4>Type of Home</h4>
+            <Grid item justifyContent="center" xs={4}>
+              <h5>Type of Home</h5>
               <FormControlLabel
                 control={
                   <Checkbox
+                    className="checkbox"
                     checked={filterState.typeOfHome.flatApartment}
                     onChange={handleTypeOfHouse}
                     name="flatApartment"
@@ -252,7 +255,7 @@ export default function FiltersContainer() {
               {/* </div> */}
             </Grid>
             {/* <div className="col-5"> */}
-            <Grid item xs={4}>
+            <Grid item xs={3}>
               <h4>Equipment</h4>
               <Select value={filterState.equipment} onChange={handleEquipment}>
                 <MenuItem value={"First option"}>Indifferent</MenuItem>
@@ -265,7 +268,7 @@ export default function FiltersContainer() {
             </Grid>
 
             {/* <div className="col-2"> */}
-            <Grid item xs={2}>
+            <Grid item xs={3}>
               <h4>Condition</h4>
               <FormControlLabel
                 control={
@@ -300,7 +303,7 @@ export default function FiltersContainer() {
               {/* </div> */}
             </Grid>
             {/* <div className="col-3"> */}
-            <Grid item xs={3}>
+            <Grid item xs={2}>
               <h4>Price Range</h4>
               <div className={classes.slider}>
                 <Slider
