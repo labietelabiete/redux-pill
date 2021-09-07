@@ -62,6 +62,22 @@ export default function FiltersContainer() {
     );
   };
 
+  const handleBathrooms = (event) => {
+    const target =
+      event.target.name === undefined
+        ? event.target.parentElement.name
+        : event.target.name;
+    dispatch(
+      updateFilter({
+        ...filterState,
+        bathrooms: {
+          ...filterState.bathrooms,
+          [target]: !filterState.bathrooms[target],
+        },
+      })
+    );
+  };
+
   return (
     <Paper elevation={3}>
       <FormControl>
@@ -161,13 +177,28 @@ export default function FiltersContainer() {
             {/* <div className="col-2"> */}
             <Grid item xs={2}>
               <h4>Bathrooms</h4>
-              <Button variant="contained" color="primary">
+              <Button
+                variant="contained"
+                color={filterState.bathrooms[0] ? "primary" : "secondary"}
+                onClick={handleBathrooms}
+                name={0}
+              >
                 1
               </Button>
-              <Button variant="contained" color="primary">
+              <Button
+                variant="contained"
+                color={filterState.bathrooms[1] ? "primary" : "secondary"}
+                onClick={handleBathrooms}
+                name={1}
+              >
                 2
               </Button>
-              <Button variant="contained" color="primary">
+              <Button
+                variant="contained"
+                color={filterState.bathrooms[2] ? "primary" : "secondary"}
+                onClick={handleBathrooms}
+                name={2}
+              >
                 3 or +
               </Button>
               {/* </div> */}
