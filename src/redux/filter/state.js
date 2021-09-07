@@ -23,11 +23,8 @@ const initialState = {
     goodCondition: false,
     needsRenovation: false,
   },
-  priceRange: {
-    bottom: 0,
-    top: 100000,
-  },
-  publicationDate: "",
+  priceRange: [50000, 500000],
+  publicationDate: "any",
   moreFilters: {
     petsAllowed: false,
     lift: false,

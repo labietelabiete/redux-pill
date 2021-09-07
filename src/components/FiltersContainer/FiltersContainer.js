@@ -15,13 +15,15 @@ import { Grid, InputLabel, MenuItem, Paper, Select } from "@material-ui/core";
 import { updateFilter, resetFilter } from "../../redux/filter/actions";
 
 const useStyles = makeStyles({
-  root: {
+  slider: {
     width: "80%",
   },
 });
 
 function valuetext(value) {
-  return `$${value}`;
+  console.log(value);
+  console.log(`${value / 1000}k`);
+  return `${value / 1000}k`;
 }
 
 export default function FiltersContainer() {
@@ -29,10 +31,6 @@ export default function FiltersContainer() {
   const [value, setValue] = React.useState([50000, 500000]);
   const dispatch = useDispatch();
   const filterState = useSelector((state) => state.filter);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
 
   const handleTypeOfHouse = (event) => {
     dispatch(
@@ -57,6 +55,36 @@ export default function FiltersContainer() {
         bedrooms: {
           ...filterState.bedrooms,
           [target]: !filterState.bedrooms[target],
+        },
+      })
+    );
+  };
+
+  const handleRange = (event, newValue) => {
+    dispatch(
+      updateFilter({
+        ...filterState,
+        priceRange: newValue,
+      })
+    );
+  };
+
+  const handlePublicationDate = (event) => {
+    dispatch(
+      updateFilter({
+        ...filterState,
+        publicationDate: event.target.value,
+      })
+    );
+  };
+
+  const handleMoreFilters = (event) => {
+    dispatch(
+      updateFilter({
+        ...filterState,
+        moreFilters: {
+          ...filterState.moreFilters,
+          [event.target.name]: event.target.checked,
         },
       })
     );
@@ -225,19 +253,16 @@ export default function FiltersContainer() {
             {/* <div className="col-3"> */}
             <Grid item xs={3}>
               <h4>Price Range</h4>
-              <div className={classes.root}>
-                <Typography id="range-slider" gutterBottom>
-                  Price Range
-                </Typography>
+              <div className={classes.slider}>
                 <Slider
-                  value={value}
-                  onChange={handleChange}
+                  value={filterState.priceRange}
+                  onChange={handleRange}
                   valueLabelDisplay="auto"
                   aria-labelledby="range-slider"
-                  getAriaValueText={valuetext}
+                  valueLabelFormat={valuetext}
                   min={50000}
-                  max={500000}
-                  step={1000}
+                  max={1000000}
+                  step={10000}
                 />
               </div>
               {/* </div> */}
@@ -245,13 +270,20 @@ export default function FiltersContainer() {
             {/* <div className="col-2"> */}
             <Grid item xs={2}>
               <h4>Publication date</h4>
-              <FormControl>
-                {/* <InputLabel htmlFor="equipment">Age</InputLabel> */}
-                <Select value={24} onChange={() => {}}>
-                  <MenuItem value={24}>Last 24 hours</MenuItem>
-                  <MenuItem value={48}>Last 48 hours</MenuItem>
-                </Select>
-              </FormControl>
+              {/* <FormControl> */}
+              {/* <InputLabel htmlFor="equipment">Age</InputLabel> */}
+              <Select
+                value={filterState.publicationDate}
+                onChange={handlePublicationDate}
+                // defaultValue={filterState.publicationDate}
+              >
+                <MenuItem value={"any"} default>
+                  Any
+                </MenuItem>
+                <MenuItem value={"24"}>Last 24 hours</MenuItem>
+                <MenuItem value={"48"}>Last 48 hours</MenuItem>
+              </Select>
+              {/* </FormControl> */}
               {/* </div> */}
             </Grid>
             {/* <div className="col-5"> */}
@@ -260,31 +292,39 @@ export default function FiltersContainer() {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={true}
-                    onChange={() => {}}
-                    name="pets-allowed"
+                    checked={filterState.moreFilters.petsAllowed}
+                    onChange={handleMoreFilters}
+                    name="petsAllowed"
                   />
                 }
                 label="Pets allowed"
               />
               <FormControlLabel
                 control={
-                  <Checkbox checked={true} onChange={() => {}} name="lift" />
+                  <Checkbox
+                    checked={filterState.moreFilters.lift}
+                    onChange={handleMoreFilters}
+                    name="lift"
+                  />
                 }
                 label="Lift"
               />
               <FormControlLabel
                 control={
-                  <Checkbox checked={true} onChange={() => {}} name="garden" />
+                  <Checkbox
+                    checked={filterState.moreFilters.garden}
+                    onChange={handleMoreFilters}
+                    name="garden"
+                  />
                 }
                 label="Garden"
               />
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={true}
-                    onChange={() => {}}
-                    name="air-condition"
+                    checked={filterState.moreFilters.airConditioning}
+                    onChange={handleMoreFilters}
+                    name="airConditioning"
                   />
                 }
                 label="Air condition"
@@ -292,16 +332,20 @@ export default function FiltersContainer() {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={true}
-                    onChange={() => {}}
-                    name="swimming-pool"
+                    checked={filterState.moreFilters.swimmingPool}
+                    onChange={handleMoreFilters}
+                    name="swimmingPool"
                   />
                 }
                 label="Swimming pool"
               />
               <FormControlLabel
                 control={
-                  <Checkbox checked={true} onChange={() => {}} name="terrace" />
+                  <Checkbox
+                    checked={filterState.moreFilters.terrace}
+                    onChange={handleMoreFilters}
+                    name="terrace"
+                  />
                 }
                 label="Terrace"
               />
