@@ -60,6 +60,22 @@ export default function FiltersContainer() {
     );
   };
 
+  const handleBathrooms = (event) => {
+    const target =
+      event.target.name === undefined
+        ? event.target.parentElement.name
+        : event.target.name;
+    dispatch(
+      updateFilter({
+        ...filterState,
+        bathrooms: {
+          ...filterState.bathrooms,
+          [target]: !filterState.bathrooms[target],
+        },
+      })
+    );
+  };
+
   const handleRange = (event, newValue) => {
     dispatch(
       updateFilter({
@@ -84,6 +100,26 @@ export default function FiltersContainer() {
         ...filterState,
         moreFilters: {
           ...filterState.moreFilters,
+          [event.target.name]: event.target.checked,
+        },
+      })
+    );
+  };
+  const handleEquipment = (event) => {
+    dispatch(
+      updateFilter({
+        ...filterState,
+        equipment: event.target.value,
+      })
+    );
+  };
+
+  const handleCondition = (event) => {
+    dispatch(
+      updateFilter({
+        ...filterState,
+        condition: {
+          ...filterState.condition,
           [event.target.name]: event.target.checked,
         },
       })
@@ -189,13 +225,28 @@ export default function FiltersContainer() {
             {/* <div className="col-2"> */}
             <Grid item xs={2}>
               <h4>Bathrooms</h4>
-              <Button variant="contained" color="primary">
+              <Button
+                variant="contained"
+                color={filterState.bathrooms[0] ? "primary" : "secondary"}
+                onClick={handleBathrooms}
+                name={0}
+              >
                 1
               </Button>
-              <Button variant="contained" color="primary">
+              <Button
+                variant="contained"
+                color={filterState.bathrooms[1] ? "primary" : "secondary"}
+                onClick={handleBathrooms}
+                name={1}
+              >
                 2
               </Button>
-              <Button variant="contained" color="primary">
+              <Button
+                variant="contained"
+                color={filterState.bathrooms[2] ? "primary" : "secondary"}
+                onClick={handleBathrooms}
+                name={2}
+              >
                 3 or +
               </Button>
               {/* </div> */}
@@ -203,15 +254,13 @@ export default function FiltersContainer() {
             {/* <div className="col-5"> */}
             <Grid item xs={4}>
               <h4>Equipment</h4>
-              <FormControl>
-                <Select value={"indifferent"} onChange={() => {}}>
-                  <MenuItem value={"indifferent"}>Indifferent</MenuItem>
-                  <MenuItem value={20}>
-                    Twenty dsfgsfsdfsdffsdfsdfsdfsdf
-                  </MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                </Select>
-              </FormControl>
+              <Select value={filterState.equipment} onChange={handleEquipment}>
+                <MenuItem value={"First option"}>Indifferent</MenuItem>
+                <MenuItem value={"Second option"}>
+                  Twenty dsfgsfsdfsdffsdfsdfsdfsdf
+                </MenuItem>
+                <MenuItem value={"Third option"}>Thirty</MenuItem>
+              </Select>
               {/* </div> */}
             </Grid>
 
@@ -221,9 +270,9 @@ export default function FiltersContainer() {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={true}
-                    onChange={() => {}}
-                    name="new-homes"
+                    checked={filterState.condition.newHomes}
+                    onChange={handleCondition}
+                    name="newHomes"
                   />
                 }
                 label="New homes"
@@ -231,9 +280,9 @@ export default function FiltersContainer() {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={true}
-                    onChange={() => {}}
-                    name="good-condition"
+                    checked={filterState.condition.goodCondition}
+                    onChange={handleCondition}
+                    name="goodCondition"
                   />
                 }
                 label="Good condition"
@@ -241,9 +290,9 @@ export default function FiltersContainer() {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={true}
-                    onChange={() => {}}
-                    name="needs-renovation"
+                    checked={filterState.condition.needsRenovation}
+                    onChange={handleCondition}
+                    name="needsRenovation"
                   />
                 }
                 label="Needs renovation"
