@@ -1,12 +1,7 @@
-import {
-  INCREASE_COUNTER,
-  DECREASE_COUNTER,
-  RESET_COUNTER,
-  SET_COUNTER,
-  RANDOM_COUNTER,
-} from "./types";
+import { UPDATE_FILTER, RESET_FILTER } from "./types";
 
-export const increaseCounter = () => ({ type: INCREASE_COUNTER });
-export const decreaseCounter = () => ({ type: DECREASE_COUNTER });
-export const resetCounter = () => ({ type: RESET_COUNTER });
-export const setCounter = (value) => ({ type: SET_COUNTER, payload: value });
+export const updateFilter = (value) => ({
+  type: UPDATE_FILTER,
+  payload: value,
+});
+export const resetFilter = () => ({ type: RESET_FILTER });
