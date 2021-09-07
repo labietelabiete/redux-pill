@@ -32,10 +32,10 @@ export default function FiltersContainer() {
     <Paper elevation={3}>
       <FormControl>
         <FormGroup>
-          <Grid container spacing={2}>
+          <Grid container justifyContent="center" spacing={2}>
             {/* <div className="row"> */}
             {/* <div className="col-2"> */}
-            <Grid item xs={2}>
+            <Grid item xs={3}>
               <h4>Type of Home</h4>
               <FormControlLabel
                 control={
@@ -106,7 +106,7 @@ export default function FiltersContainer() {
               {/* </div> */}
             </Grid>
             {/* <div className="col-5"> */}
-            <Grid item xs={5}>
+            <Grid item xs={4}>
               <h4>Equipment</h4>
               <FormControl>
                 <Select value={"indifferent"} onChange={() => {}}>

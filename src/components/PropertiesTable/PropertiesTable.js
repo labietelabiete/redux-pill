@@ -7,7 +7,7 @@ export default function PropertiesTable({ dataList }) {
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">id</th>
+          <th scope="col"></th>
           <th scope="col">Address</th>
           <th scope="col">Price</th>
           <th scope="col">Options</th>
