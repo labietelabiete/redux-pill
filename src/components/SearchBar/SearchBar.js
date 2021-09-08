@@ -25,7 +25,7 @@ export default function SearchBar() {
       autoComplete="off"
       onSubmit={getSearch}
     >
-      <img src="./../../assets/images/logo.png" alt="logo"></img>
+      {/* <img src="./../../assets/images/logo.png" alt="logo"></img> */}
 
       <input className="search-input" id="inputid" ref={searchRef} />
       <Button variant="contained" color="secondary" startIcon={<SearchIcon />}>
