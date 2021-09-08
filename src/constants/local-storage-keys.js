@@ -1,0 +1,1 @@
+export const FILTER_STATE_KEY = "FILTER_STATE_KEY";

@@ -8,6 +8,8 @@ import Button from "@material-ui/core/Button";
 import Slider from "@material-ui/core/Slider";
 import { MenuItem, Select } from "@material-ui/core";
 
+import { FILTER_STATE_KEY } from "../../constants/local-storage-keys";
+
 import { updateFilter } from "../../redux/filter/actions";
 import { fetchAll, fetchFiltered } from "../../redux/propertiesData/actions";
 
@@ -39,6 +41,7 @@ export default function FiltersContainer({ priceRange }) {
     if (waitingTimeout) return;
     setWaitingTimeout(true);
     setTimeout(() => {
+      localStorage.setItem(FILTER_STATE_KEY, JSON.stringify(filterStateRef.current));
       dispatch(fetchFiltered(filterStateRef.current));
       setWaitingTimeout(false);
     }, 300);
