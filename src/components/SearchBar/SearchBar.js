@@ -6,7 +6,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import SearchIcon from "@material-ui/icons/Search";
 
-import { updateQuery } from "../../redux/search/actions";
+import { updateQuery, fetchQuery } from "../../redux/search/actions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,6 +26,13 @@ export default function SearchBar() {
 
   const updateSearch = (e) => {
     dispatch(updateQuery({ ...searchState, query: e.target.value }));
+    e.target.value = searchState.query;
+  };
+
+  const getSearch = (e) => {
+    e.preventDefault();
+    dispatch(fetchQuery({ ...searchState, query: searchState.query }));
+    dispatch(updateQuery({ ...searchState, query: "" }));
   };
 
   const classes = useStyles();
@@ -42,6 +49,7 @@ export default function SearchBar() {
         color="secondary"
         className={classes.button}
         startIcon={<SearchIcon />}
+        onClick={getSearch}
       >
         Search
       </Button>

@@ -1,4 +1,4 @@
-import { UPDATE_QUERY } from "./types";
+import { UPDATE_QUERY, FETCH_QUERY } from "./types";
 
 import initialState from "./state";
 
@@ -9,6 +9,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         ...action.payload,
       };
+      case FETCH_QUERY:
+        return {
+          ...state,
+          ...action.payload,
+        };
+  
     default:
       break;
   }
