@@ -1,11 +1,11 @@
 import { SET_DATA, CLEAR_DATA } from "./types";
 import { API } from "../../constants/routes";
+import propertiesInitialState from "../filter/state";
 const axios = require("axios");
 
 export const fetchAll = () => {
   return async (dispatch) => {
     axios.get(`${API.MAIN}${API.PROPERTIES}`).then((response) => {
-      // console.log("response", response);
       dispatch({
         type: SET_DATA,
         payload: response.data,
@@ -38,7 +38,10 @@ export const fetchFiltered = (filterState) => {
   });
 
   // PRICE RANGE 🤑🤑🤑
-  reqUrl += `&price_gte=${filterState.priceRange[0]}&price_lte=${filterState.priceRange[1]}`;
+  if (filterState.priceRange[0] !== propertiesInitialState.priceRange[0])
+    reqUrl += `&price_gte=${filterState.priceRange[0]}`;
+  if (filterState.priceRange[1] !== propertiesInitialState.priceRange[1])
+    reqUrl += `&price_lte=${filterState.priceRange[1]}`;
 
   // TODO PUBLICATION DATE
 
@@ -52,7 +55,6 @@ export const fetchFiltered = (filterState) => {
 
   return async (dispatch) => {
     axios.get(`${API.MAIN}${API.PROPERTIES}?${reqUrl}`).then((response) => {
-      // console.log("response", response);
       dispatch({
         type: SET_DATA,
         payload: response.data,

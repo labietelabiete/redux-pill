@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import withLayout from "../../hoc/withLayout";
@@ -10,14 +10,28 @@ import ClearButton from "../../components/ClearButton/ClearButton";
 
 function Dashboard() {
   const propertiesData = useSelector((state) => state.propertiesData);
+  const [priceRange, setPriceRange] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    if (!loaded) {
+      const pricesArray = propertiesData.map((item) => item.price);
+      if (pricesArray.length > 2) {
+        setPriceRange([Math.min(...pricesArray), Math.max(...pricesArray)]);
+        setLoaded(true);
+      }
+    }
+  }, [propertiesData]);
 
   return (
-    <div className="container p-5">
-      <SearchBar alignment="text-start" />
-      <FiltersContainer />
-      <ClearButton />
-      <PropertiesTable dataList={propertiesData} />
-    </div>
+    <>
+      <div className="container p-5">
+        <SearchBar alignment="text-start" />
+        <ClearButton />
+        <FiltersContainer priceRange={priceRange} />
+        {propertiesData && <PropertiesTable dataList={propertiesData} />}
+      </div>
+    </>
   );
 }
 

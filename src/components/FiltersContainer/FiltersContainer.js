@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 // import FormLabel from "@material-ui/core/FormLabel";
-import FormControl from "@material-ui/core/FormControl";
+// import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 // import FormHelperText from "@material-ui/core/FormHelperText";
@@ -14,7 +14,7 @@ import { MenuItem, Select } from "@material-ui/core";
 
 import { updateFilter } from "../../redux/filter/actions";
 // import initialFilterState from "../../redux/filter/state";
-import { fetchFiltered } from "../../redux/propertiesData/actions";
+import { fetchAll, fetchFiltered } from "../../redux/propertiesData/actions";
 
 import "./FiltersContainer.scss";
 
@@ -25,19 +25,28 @@ const useStyles = makeStyles({
 });
 
 function valuetext(value) {
-  return `$${value / 1000}k`;
+  if (Number.isNaN(value)) return;
+  if (value <= 10 ** 3) return `$${value}`;
+  if (value >= 1000 && value < 10 ** 6) return `$${value / 1000}k`;
+  if (value >= 10 ** 6) return `$${value / 10 ** 6}M`;
 }
 
-export default function FiltersContainer() {
+export default function FiltersContainer({ priceRange }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const filterState = useSelector((state) => state.filter);
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   useEffect(() => {
     // console.log(filterState);
     // if (initialFilterState !== filterState)
-    dispatch(fetchFiltered(filterState));
+    if (!isFirstLoad) dispatch(fetchFiltered(filterState));
   }, [dispatch, filterState]);
+
+  useEffect(() => {
+    dispatch(fetchAll());
+    setIsFirstLoad(false);
+  }, []);
 
   const handleTypeOfHouse = (event) => {
     dispatch(
@@ -403,16 +412,19 @@ export default function FiltersContainer() {
           <div className="col-3">
             <h5>Price Range</h5>
             <div className={classes.slider}>
-              <Slider
-                value={filterState.priceRange}
-                onChange={handleRange}
-                valueLabelDisplay="auto"
-                aria-labelledby="range-slider"
-                valueLabelFormat={valuetext}
-                min={50000}
-                max={1000000}
-                step={10000}
-              />
+              {priceRange[1] && priceRange[0] && (
+                <Slider
+                  // value={filterState.priceRange}
+                  defaultValue={priceRange}
+                  onChange={handleRange}
+                  valueLabelDisplay="auto"
+                  aria-labelledby="range-slider"
+                  valueLabelFormat={valuetext}
+                  min={priceRange[0]}
+                  max={priceRange[1]}
+                  step={(priceRange[1] - priceRange[0]) / 20}
+                />
+              )}
             </div>
           </div>
 
