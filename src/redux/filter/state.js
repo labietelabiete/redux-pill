@@ -23,7 +23,7 @@ const initialState = {
     goodCondition: false,
     needsRenovation: false,
   },
-  priceRange: [50000, 500000],
+  priceRange: [100000, 100001],
   publication_date: "any",
   moreFilters: {
     pet: false,
