@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 // import FormLabel from "@material-ui/core/FormLabel";
@@ -8,7 +8,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 // import FormHelperText from "@material-ui/core/FormHelperText";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
+// import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import { Grid, InputLabel, MenuItem, Paper, Select } from "@material-ui/core";
 
@@ -30,7 +30,7 @@ function valuetext(value) {
 
 export default function FiltersContainer() {
   const classes = useStyles();
-  const [value, setValue] = React.useState([50000, 500000]);
+  const [value, setValue] = useState([50000, 500000]);
   const dispatch = useDispatch();
   const filterState = useSelector((state) => state.filter);
 
@@ -129,18 +129,17 @@ export default function FiltersContainer() {
   };
 
   return (
-    <Paper elevation={3}>
-      <FormControl>
-        <FormGroup>
-          <Grid container spacing={0}>
-            {/* <div className="row"> */}
-            {/* <div className="col-2"> */}
-            <Grid item justifyContent="center" xs={4}>
+    <FormControl>
+      <FormGroup>
+        <div className="container p-5">
+          <div className="row mb-3">
+            <div className="col-3">
               <h5>Type of Home</h5>
               <FormControlLabel
+                className="filter-input"
                 control={
                   <Checkbox
-                    className="checkbox"
+                    className="pe-0"
                     checked={filterState.typeOfHome.flatApartment}
                     onChange={handleTypeOfHouse}
                     name="flatApartment"
@@ -149,8 +148,10 @@ export default function FiltersContainer() {
                 label="Flat/Apartment"
               />
               <FormControlLabel
+                className="filter-input"
                 control={
                   <Checkbox
+                    className="pe-0"
                     checked={filterState.typeOfHome.duplex}
                     onChange={handleTypeOfHouse}
                     name="duplex"
@@ -159,8 +160,10 @@ export default function FiltersContainer() {
                 label="Duplex"
               />
               <FormControlLabel
+                className="filter-input"
                 control={
                   <Checkbox
+                    className="pe-0"
                     checked={filterState.typeOfHome.house}
                     onChange={handleTypeOfHouse}
                     name="house"
@@ -169,8 +172,10 @@ export default function FiltersContainer() {
                 label="House"
               />
               <FormControlLabel
+                className="filter-input"
                 control={
                   <Checkbox
+                    className="pe-0"
                     checked={filterState.typeOfHome.penthouse}
                     onChange={handleTypeOfHouse}
                     name="penthouse"
@@ -178,101 +183,117 @@ export default function FiltersContainer() {
                 }
                 label="Penthouse"
               />
-            </Grid>
-            {/* </div> */}
-            {/* <div className="col-3"> */}
-            <Grid item xs={3}>
-              <h4>Bedrooms</h4>
+            </div>
+
+            <div className="col-4">
+              <h5>Bedrooms</h5>
               <Button
                 variant="contained"
-                color={filterState.bedrooms[0] ? "primary" : "secondary"}
+                color={filterState.bedrooms[0] ? "secondary" : "primary"}
                 onClick={handleBedrooms}
                 name={0}
+                className="m-1"
               >
                 0 (studio flat)
               </Button>
               <Button
                 variant="contained"
-                color={filterState.bedrooms[1] ? "primary" : "secondary"}
+                color={filterState.bedrooms[1] ? "secondary" : "primary"}
                 onClick={handleBedrooms}
                 name={1}
+                className="m-1"
               >
                 1
               </Button>
               <Button
                 variant="contained"
-                color={filterState.bedrooms[2] ? "primary" : "secondary"}
+                color={filterState.bedrooms[2] ? "secondary" : "primary"}
                 onClick={handleBedrooms}
                 name={2}
+                className="m-1"
               >
                 2
               </Button>
               <Button
                 variant="contained"
-                color={filterState.bedrooms[3] ? "primary" : "secondary"}
+                color={filterState.bedrooms[3] ? "secondary" : "primary"}
                 onClick={handleBedrooms}
                 name={3}
+                className="m-1"
               >
                 3
               </Button>
               <Button
                 variant="contained"
-                color={filterState.bedrooms[4] ? "primary" : "secondary"}
+                color={filterState.bedrooms[4] ? "secondary" : "primary"}
                 onClick={handleBedrooms}
                 name={4}
+                className="m-1"
               >
                 4 or +
               </Button>
-            </Grid>
-            {/* </div> */}
-            {/* <div className="col-2"> */}
-            <Grid item xs={2}>
-              <h4>Bathrooms</h4>
+            </div>
+
+            <div className="col-3">
+              <h5>Bathrooms</h5>
               <Button
                 variant="contained"
-                color={filterState.bathrooms[0] ? "primary" : "secondary"}
+                color={filterState.bathrooms[0] ? "secondary" : "primary"}
                 onClick={handleBathrooms}
                 name={0}
+                className="m-1"
               >
                 1
               </Button>
               <Button
                 variant="contained"
-                color={filterState.bathrooms[1] ? "primary" : "secondary"}
+                color={filterState.bathrooms[1] ? "secondary" : "primary"}
                 onClick={handleBathrooms}
                 name={1}
+                className="m-1"
               >
                 2
               </Button>
               <Button
                 variant="contained"
-                color={filterState.bathrooms[2] ? "primary" : "secondary"}
+                color={filterState.bathrooms[2] ? "secondary" : "primary"}
                 onClick={handleBathrooms}
                 name={2}
+                className="m-1"
               >
                 3 or +
               </Button>
-              {/* </div> */}
-            </Grid>
-            {/* <div className="col-5"> */}
-            <Grid item xs={3}>
-              <h4>Equipment</h4>
-              <Select value={filterState.equipment} onChange={handleEquipment}>
-                <MenuItem value={"First option"}>Indifferent</MenuItem>
+            </div>
+
+            <div className="col-2">
+              <h5>Equipment</h5>
+              <Select
+                className="w-100 filter-input"
+                value={filterState.equipment}
+                onChange={handleEquipment}
+              >
+                <MenuItem
+                  className="w-100 filter-input"
+                  s
+                  value={"First option"}
+                >
+                  Indifferent
+                </MenuItem>
                 <MenuItem value={"Second option"}>
                   Twenty dsfgsfsdfsdffsdfsdfsdfsdf
                 </MenuItem>
                 <MenuItem value={"Third option"}>Thirty</MenuItem>
               </Select>
-              {/* </div> */}
-            </Grid>
-
-            {/* <div className="col-2"> */}
-            <Grid item xs={3}>
-              <h4>Condition</h4>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-3">
+              <h5>Condition</h5>
               <FormControlLabel
+                className="filter-input"
                 control={
                   <Checkbox
+                    className="pe-0"
                     checked={filterState.condition.newHomes}
                     onChange={handleCondition}
                     name="newHomes"
@@ -281,8 +302,10 @@ export default function FiltersContainer() {
                 label="New homes"
               />
               <FormControlLabel
+                className="filter-input"
                 control={
                   <Checkbox
+                    className="pe-0"
                     checked={filterState.condition.goodCondition}
                     onChange={handleCondition}
                     name="goodCondition"
@@ -291,8 +314,10 @@ export default function FiltersContainer() {
                 label="Good condition"
               />
               <FormControlLabel
+                className="filter-input"
                 control={
                   <Checkbox
+                    className="pe-0"
                     checked={filterState.condition.needsRenovation}
                     onChange={handleCondition}
                     name="needsRenovation"
@@ -300,11 +325,86 @@ export default function FiltersContainer() {
                 }
                 label="Needs renovation"
               />
-              {/* </div> */}
-            </Grid>
-            {/* <div className="col-3"> */}
-            <Grid item xs={2}>
-              <h4>Price Range</h4>
+            </div>
+
+            <div className="col-4">
+              <h5>More filters</h5>
+              <FormControlLabel
+                className="filter-input"
+                control={
+                  <Checkbox
+                    className="pe-0"
+                    checked={filterState.moreFilters.petsAllowed}
+                    onChange={handleMoreFilters}
+                    name="petsAllowed"
+                  />
+                }
+                label="Pets allowed"
+              />
+              <FormControlLabel
+                className="filter-input"
+                control={
+                  <Checkbox
+                    className="pe-0"
+                    checked={filterState.moreFilters.lift}
+                    onChange={handleMoreFilters}
+                    name="lift"
+                  />
+                }
+                label="Lift"
+              />
+              <FormControlLabel
+                className="filter-input"
+                control={
+                  <Checkbox
+                    className="pe-0"
+                    checked={filterState.moreFilters.garden}
+                    onChange={handleMoreFilters}
+                    name="garden"
+                  />
+                }
+                label="Garden"
+              />
+              <FormControlLabel
+                className="filter-input"
+                control={
+                  <Checkbox
+                    className="pe-0"
+                    checked={filterState.moreFilters.airConditioning}
+                    onChange={handleMoreFilters}
+                    name="airConditioning"
+                  />
+                }
+                label="Air condition"
+              />
+              <FormControlLabel
+                className="filter-input"
+                control={
+                  <Checkbox
+                    className="pe-0"
+                    checked={filterState.moreFilters.swimmingPool}
+                    onChange={handleMoreFilters}
+                    name="swimmingPool"
+                  />
+                }
+                label="Swimming pool"
+              />
+              <FormControlLabel
+                className="filter-input"
+                control={
+                  <Checkbox
+                    className="pe-0"
+                    checked={filterState.moreFilters.terrace}
+                    onChange={handleMoreFilters}
+                    name="terrace"
+                  />
+                }
+                label="Terrace"
+              />
+            </div>
+
+            <div className="col-3">
+              <h5>Price Range</h5>
               <div className={classes.slider}>
                 <Slider
                   value={filterState.priceRange}
@@ -317,17 +417,14 @@ export default function FiltersContainer() {
                   step={10000}
                 />
               </div>
-              {/* </div> */}
-            </Grid>
-            {/* <div className="col-2"> */}
-            <Grid item xs={2}>
-              <h4>Publication date</h4>
-              {/* <FormControl> */}
-              {/* <InputLabel htmlFor="equipment">Age</InputLabel> */}
+            </div>
+
+            <div className="col-2">
+              <h5>Publication date</h5>
               <Select
+                className="w-100 filter-input"
                 value={filterState.publicationDate}
                 onChange={handlePublicationDate}
-                // defaultValue={filterState.publicationDate}
               >
                 <MenuItem value={"any"} default>
                   Any
@@ -335,78 +432,10 @@ export default function FiltersContainer() {
                 <MenuItem value={"24"}>Last 24 hours</MenuItem>
                 <MenuItem value={"48"}>Last 48 hours</MenuItem>
               </Select>
-              {/* </FormControl> */}
-              {/* </div> */}
-            </Grid>
-            {/* <div className="col-5"> */}
-            <Grid item xs={5}>
-              <h4>More filters</h4>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={filterState.moreFilters.petsAllowed}
-                    onChange={handleMoreFilters}
-                    name="petsAllowed"
-                  />
-                }
-                label="Pets allowed"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={filterState.moreFilters.lift}
-                    onChange={handleMoreFilters}
-                    name="lift"
-                  />
-                }
-                label="Lift"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={filterState.moreFilters.garden}
-                    onChange={handleMoreFilters}
-                    name="garden"
-                  />
-                }
-                label="Garden"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={filterState.moreFilters.airConditioning}
-                    onChange={handleMoreFilters}
-                    name="airConditioning"
-                  />
-                }
-                label="Air condition"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={filterState.moreFilters.swimmingPool}
-                    onChange={handleMoreFilters}
-                    name="swimmingPool"
-                  />
-                }
-                label="Swimming pool"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={filterState.moreFilters.terrace}
-                    onChange={handleMoreFilters}
-                    name="terrace"
-                  />
-                }
-                label="Terrace"
-              />
-              {/* </div> */}
-            </Grid>
-            {/* </div> */}
-          </Grid>
-        </FormGroup>
-      </FormControl>
-    </Paper>
+            </div>
+          </div>
+        </div>
+      </FormGroup>
+    </FormControl>
   );
 }
