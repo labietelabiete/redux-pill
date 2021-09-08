@@ -1,19 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
-// import FormLabel from "@material-ui/core/FormLabel";
-// import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-// import FormHelperText from "@material-ui/core/FormHelperText";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
-// import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import { MenuItem, Select } from "@material-ui/core";
 
 import { updateFilter } from "../../redux/filter/actions";
-// import initialFilterState from "../../redux/filter/state";
 import { fetchAll, fetchFiltered } from "../../redux/propertiesData/actions";
 
 import "./FiltersContainer.scss";
@@ -38,8 +33,6 @@ export default function FiltersContainer({ priceRange }) {
   const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   useEffect(() => {
-    // console.log(filterState);
-    // if (initialFilterState !== filterState)
     if (!isFirstLoad) dispatch(fetchFiltered(filterState));
   }, [dispatch, filterState]);
 
