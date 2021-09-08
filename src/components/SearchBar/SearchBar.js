@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import SearchIcon from "@material-ui/icons/Search";
 
-import { updateFilter, resetFilter } from "../../redux/filter/actions";
+import { updateFilter } from "../../redux/filter/actions";
 import { fetchFiltered } from "../../redux/propertiesData/actions";
 
 import { DASHBOARD } from "../../constants/routes";
@@ -19,7 +19,9 @@ export default function SearchBar() {
 
   const history = useHistory();
 
-  const getSearch = () => {
+  const getSearch = (event) => {
+    event.preventDefault();
+    if (searchRef.current.value === "") return;
     dispatch(
       updateFilter({
         ...filterState,
@@ -31,10 +33,12 @@ export default function SearchBar() {
   };
 
   return (
-    <form className="text-center" noValidate autoComplete="off">
-      {/* <img src="./../../assets/images/logo.png" alt="logo"></img> */}
-
-      <input className="search-input" id="inputid" ref={searchRef} />
+    <form className="text-center" noValidate onSubmit={getSearch}>
+      <input
+        className="search-input"
+        id="inputid"
+        ref={searchRef}
+      />
       <Button
         variant="contained"
         color="secondary"

@@ -134,7 +134,6 @@ export default function FiltersContainer() {
   };
 
   return (
-    // <FormControl>
     <FormGroup>
       <div className="container p-5">
         <div className="row mb-3">
@@ -435,6 +434,5 @@ export default function FiltersContainer() {
         </div>
       </div>
     </FormGroup>
-    // </FormControl>
   );
 }

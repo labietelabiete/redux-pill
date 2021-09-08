@@ -47,14 +47,8 @@ export const fetchFiltered = (filterState) => {
     if (filterState.moreFilters[key]) reqUrl += `&${key}=true`;
   });
 
-  console.log(filterState.query);
   // SEARCH FILTER
-  if (filterState.query !== "") {
-    console.log("Hay query");
-    reqUrl += `&q=${filterState.query.substr(0, filterState.query.length)}`;
-  }
-
-  console.log(reqUrl);
+  reqUrl += `&q=${filterState.query.substr(0, filterState.query.length)}`;
 
   return async (dispatch) => {
     axios.get(`${API.MAIN}${API.PROPERTIES}?${reqUrl}`).then((response) => {
