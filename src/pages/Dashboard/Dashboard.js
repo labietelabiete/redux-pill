@@ -27,8 +27,8 @@ function Dashboard() {
     <>
       <div className="container p-5">
         <SearchBar alignment="text-start" />
-        <ClearButton />
         <FiltersContainer priceRange={priceRange} />
+        <ClearButton />
         {propertiesData && <PropertiesTable dataList={propertiesData} />}
       </div>
     </>

@@ -27,7 +27,10 @@ export const fetchFiltered = (filterState) => {
   });
   // BATHROOMS
   Object.keys(filterState.bathrooms).forEach((key) => {
-    if (filterState.bathrooms[key]) reqUrl += `&bathroom=${key}`;
+    if (filterState.bathrooms[key]) {
+      let intKey = parseInt(key) + 1;
+      reqUrl += `&bath=${intKey}`;
+    }
   });
   // EQUIPMENT
   if (filterState.equipment === "empty") reqUrl += `&equipment=empty`;
