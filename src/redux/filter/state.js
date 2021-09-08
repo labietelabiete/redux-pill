@@ -17,22 +17,23 @@ const initialState = {
     1: false,
     2: false,
   },
-  equipment: "First option",
+  equipment: "indifferent",
   condition: {
-    newHomes: false,
+    new: false,
     goodCondition: false,
     needsRenovation: false,
   },
   priceRange: [50000, 500000],
-  publicationDate: "any",
+  publication_date: "any",
   moreFilters: {
-    petsAllowed: false,
+    pet: false,
     lift: false,
     garden: false,
-    airConditioning: false,
-    swimmingPool: false,
+    air_conditioning: false,
+    swimming_pool: false,
     terrace: false,
   },
+  query: "",
 };
 
 export default initialState;

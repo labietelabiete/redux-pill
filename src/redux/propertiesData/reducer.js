@@ -1,13 +1,12 @@
-import { UPDATE_FILTER, RESET_FILTER } from "./types";
+import { SET_DATA, CLEAR_DATA } from "./types";
 
 import initialState from "./state";
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case UPDATE_FILTER:
-      // TODO
-      return state + 1;
-    case RESET_FILTER:
+    case SET_DATA:
+      return action.payload;
+    case CLEAR_DATA:
       return initialState;
     default:
       break;
