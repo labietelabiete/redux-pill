@@ -12,7 +12,7 @@ import Button from "@material-ui/core/Button";
 import Slider from "@material-ui/core/Slider";
 import { MenuItem, Select } from "@material-ui/core";
 
-import { updateFilter, resetFilter } from "../../redux/filter/actions";
+import { updateFilter } from "../../redux/filter/actions";
 // import initialFilterState from "../../redux/filter/state";
 import { fetchFiltered } from "../../redux/propertiesData/actions";
 
@@ -135,7 +135,6 @@ export default function FiltersContainer() {
 
   return (
     <FormGroup>
-      <div className="container p-5">
         <div className="row mb-3">
           <div className="col-3">
             <h5>Type of Home</h5>
@@ -432,7 +431,6 @@ export default function FiltersContainer() {
             </Select>
           </div>
         </div>
-      </div>
     </FormGroup>
   );
 }
