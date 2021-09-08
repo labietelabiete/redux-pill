@@ -1,4 +1,4 @@
-import { UPDATE_FILTER, RESET_FILTER } from "./types";
+import { UPDATE_FILTER, RESET_FILTER, FETCH_RESULTS } from "./types";
 
 import initialState from "./state";
 
@@ -10,6 +10,8 @@ const reducer = (state = initialState, action) => {
         ...action.payload,
       };
     case RESET_FILTER:
+      return initialState;
+    case FETCH_RESULTS:
       return initialState;
     default:
       break;
