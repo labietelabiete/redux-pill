@@ -1,6 +1,7 @@
 import { UPDATE_FILTER, RESET_FILTER, FETCH_RESULTS } from "./types";
 
 import initialState from "./state";
+import { defaultState } from "../../constants/initial-filters";
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -10,7 +11,7 @@ const reducer = (state = initialState, action) => {
         ...action.payload,
       };
     case RESET_FILTER:
-      return initialState;
+      return defaultState;
     case FETCH_RESULTS:
       return initialState;
     default:

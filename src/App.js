@@ -6,6 +6,9 @@ import Dashboard from "./pages/Dashboard";
 
 import { HOME, DASHBOARD } from "./constants/routes";
 
+import "./sass/main.scss";
+
+
 function App() {
   return (
     <>
