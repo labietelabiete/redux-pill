@@ -46,9 +46,9 @@ export default function SearchBar({ alignment }) {
         <input className="search-input" id="inputid" ref={searchRef} />
         <Button
           variant="contained"
-          color="secondary"
           onClick={getSearch}
           startIcon={<SearchIcon />}
+          className="search-btn"
         >
           Search
         </Button>

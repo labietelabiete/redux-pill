@@ -5,6 +5,8 @@ import Button from "@material-ui/core/Button";
 
 import { resetFilter } from "../../redux/filter/actions";
 
+import "./ClearButton.scss"
+
 export default function ClearButton() {
   const dispatch = useDispatch();
 
@@ -12,11 +14,18 @@ export default function ClearButton() {
     dispatch(resetFilter());
   };
 
+  const buttonStyle = {
+    color: "white",
+    backgroundColor: "#ee8434"
+  };
+
   return (
-    <div className="row mt-5 mb-5 text-end w-25">
-      <Button variant="contained" color="secondary" onClick={handleClear}>
-        Clear filters
-      </Button>
+    <div className="row mt-4 mb-5">
+      <div className="col-12 text-end">
+        <Button className="clear-btn" variant="contained" onClick={handleClear}>
+          Clear filters
+        </Button>
+      </div>
     </div>
   );
 }

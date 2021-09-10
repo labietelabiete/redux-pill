@@ -162,7 +162,7 @@ export default function FiltersContainer({ priceRange }) {
   };
 
   return (
-    <FormGroup>
+    <FormGroup className="filter-container p-5">
       <div className="row mb-3">
         <div className="col-3">
           <h5>Type of Home</h5>

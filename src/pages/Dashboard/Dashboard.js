@@ -25,7 +25,7 @@ function Dashboard() {
 
   return (
     <>
-      <div className="container p-5">
+      <div className="container p-1">
         <SearchBar alignment="text-start" />
         <FiltersContainer priceRange={priceRange} />
         <ClearButton />
