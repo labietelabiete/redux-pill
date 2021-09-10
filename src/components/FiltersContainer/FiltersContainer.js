@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import FormGroup from "@material-ui/core/FormGroup";
@@ -7,6 +8,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import Slider from "@material-ui/core/Slider";
 import { MenuItem, Select } from "@material-ui/core";
+import { populateUrl } from "../../utils/url-creation";
 
 import { FILTER_STATE_KEY } from "../../constants/local-storage-keys";
 
@@ -14,6 +16,7 @@ import { updateFilter } from "../../redux/filter/actions";
 import { fetchAll, fetchFiltered } from "../../redux/propertiesData/actions";
 
 import "./FiltersContainer.scss";
+import { urlStringToObject } from "../../utils/url-string-to-object";
 
 const useStyles = makeStyles({
   slider: {
@@ -36,14 +39,22 @@ export default function FiltersContainer({ priceRange }) {
   const [waitingTimeout, setWaitingTimeout] = useState(false);
   const filterStateRef = useRef(filterState);
   filterStateRef.current = filterState;
+  const history = useHistory();
+  const params = useLocation();
 
   const queryTimeout = () => {
     if (waitingTimeout) return;
     setWaitingTimeout(true);
     setTimeout(() => {
-      localStorage.setItem(FILTER_STATE_KEY, JSON.stringify(filterStateRef.current));
+      localStorage.setItem(
+        FILTER_STATE_KEY,
+        JSON.stringify(filterStateRef.current)
+      );
       dispatch(fetchFiltered(filterStateRef.current));
+      history.push(`/dashboard${populateUrl(filterStateRef.current)}`);
       setWaitingTimeout(false);
+      console.log("search params", params.search);
+      console.log(urlStringToObject(params.search));
     }, 300);
   };
 

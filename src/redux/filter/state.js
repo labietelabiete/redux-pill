@@ -1,6 +1,5 @@
 import { FILTER_STATE_KEY } from "../../constants/local-storage-keys";
 
-
 const defaultState = {
   typeOfHome: {
     flatApartment: false,
@@ -39,7 +38,7 @@ const defaultState = {
   query: "",
 };
 
-const initialState = JSON.parse(localStorage.getItem(FILTER_STATE_KEY)) || defaultState;
-
+const initialState =
+  JSON.parse(localStorage.getItem(FILTER_STATE_KEY)) || defaultState;
 
 export default initialState;
