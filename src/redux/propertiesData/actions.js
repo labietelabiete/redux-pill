@@ -28,7 +28,3 @@ export const fetchFiltered = (filterState) => {
 };
 
 export const clearData = () => ({ type: CLEAR_DATA });
-
-// const response = await fetch(`${API.MAIN}${API.PROPERTIES}`);
-// const result = await response.json();
-// console.log("result", result);

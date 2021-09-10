@@ -45,7 +45,6 @@ export default function FiltersContainer({ priceRange }) {
   const params = useLocation();
 
   const queryTimeout = () => {
-    console.log("query timeout");
     if (waitingTimeout) return;
     setWaitingTimeout(true);
     setTimeout(() => {
@@ -65,14 +64,11 @@ export default function FiltersContainer({ priceRange }) {
 
   useEffect(() => {
     const urlState = urlStringToObject(params.search);
-    console.log("urlState", JSON.stringify(urlState));
-    console.log("initialState", JSON.stringify(initialState));
     if (
       urlState !== false &&
       JSON.stringify(urlState) !== JSON.stringify(initialState)
     ) {
       setIsFirstLoad(false);
-      console.log("changed state on url");
       dispatch(updateFilter(urlState));
     } else {
       if (JSON.stringify(initialState) !== JSON.stringify(defaultState)) {
@@ -82,7 +78,6 @@ export default function FiltersContainer({ priceRange }) {
       }
       setIsFirstLoad(false);
     }
-    // console.log(urlStringToObject(params.search));
   }, []);
 
   const handleTypeOfHouse = (event) => {

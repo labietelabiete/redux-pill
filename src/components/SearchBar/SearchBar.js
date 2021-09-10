@@ -34,7 +34,6 @@ export default function SearchBar({ alignment }) {
     dispatch(fetchFiltered(filterState));
 
     if (currentUrl !== "dashboard") {
-      console.log("No estoy en dashboard");
       history.push(DASHBOARD);
     }
     searchRef.current.value = "";
