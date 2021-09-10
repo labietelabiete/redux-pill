@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import FormGroup from "@material-ui/core/FormGroup";
@@ -7,13 +8,17 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import Slider from "@material-ui/core/Slider";
 import { MenuItem, Select } from "@material-ui/core";
+import { populateUrl } from "../../utils/url-creation";
 
+import initialState from "../../redux/filter/state";
+import { defaultState } from "../../constants/initial-filters";
 import { FILTER_STATE_KEY } from "../../constants/local-storage-keys";
 
 import { updateFilter } from "../../redux/filter/actions";
 import { fetchAll, fetchFiltered } from "../../redux/propertiesData/actions";
 
 import "./FiltersContainer.scss";
+import { urlStringToObject } from "../../utils/url-string-to-object";
 
 const useStyles = makeStyles({
   slider: {
@@ -36,24 +41,48 @@ export default function FiltersContainer({ priceRange }) {
   const [waitingTimeout, setWaitingTimeout] = useState(false);
   const filterStateRef = useRef(filterState);
   filterStateRef.current = filterState;
+  const history = useHistory();
+  const params = useLocation();
 
   const queryTimeout = () => {
+    console.log("query timeout");
     if (waitingTimeout) return;
     setWaitingTimeout(true);
     setTimeout(() => {
-      localStorage.setItem(FILTER_STATE_KEY, JSON.stringify(filterStateRef.current));
+      localStorage.setItem(
+        FILTER_STATE_KEY,
+        JSON.stringify(filterStateRef.current)
+      );
       dispatch(fetchFiltered(filterStateRef.current));
+      history.push(`/dashboard${populateUrl(filterStateRef.current)}`);
       setWaitingTimeout(false);
     }, 300);
   };
 
   useEffect(() => {
-    if (!isFirstLoad || !waitingTimeout) queryTimeout();
+    if (!isFirstLoad && !waitingTimeout) queryTimeout();
   }, [filterState]);
 
   useEffect(() => {
-    dispatch(fetchAll());
-    setIsFirstLoad(false);
+    const urlState = urlStringToObject(params.search);
+    console.log("urlState", JSON.stringify(urlState));
+    console.log("initialState", JSON.stringify(initialState));
+    if (
+      urlState !== false &&
+      JSON.stringify(urlState) !== JSON.stringify(initialState)
+    ) {
+      setIsFirstLoad(false);
+      console.log("changed state on url");
+      dispatch(updateFilter(urlState));
+    } else {
+      if (JSON.stringify(initialState) !== JSON.stringify(defaultState)) {
+        dispatch(updateFilter(initialState));
+      } else {
+        dispatch(fetchAll());
+      }
+      setIsFirstLoad(false);
+    }
+    // console.log(urlStringToObject(params.search));
   }, []);
 
   const handleTypeOfHouse = (event) => {
