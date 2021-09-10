@@ -1,6 +1,7 @@
-import defaultState from "../redux/filter/state";
+import { defaultState } from "../constants/initial-filters";
 
 export function urlStringToObject(stringUrl) {
+  if (stringUrl === "") return false;
   let resultObject = defaultState;
   stringUrl = stringUrl.slice(2).split("&");
   stringUrl.forEach((element) => {
@@ -64,7 +65,7 @@ export function urlStringToObject(stringUrl) {
             priceRange: [resultObject.priceRange[0], value],
           };
           break;
-        case "u":
+        case "q":
           resultObject = {
             ...resultObject,
             query: value,

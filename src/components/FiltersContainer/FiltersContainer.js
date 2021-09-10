@@ -10,6 +10,8 @@ import Slider from "@material-ui/core/Slider";
 import { MenuItem, Select } from "@material-ui/core";
 import { populateUrl } from "../../utils/url-creation";
 
+import initialState from "../../redux/filter/state";
+import { defaultState } from "../../constants/initial-filters";
 import { FILTER_STATE_KEY } from "../../constants/local-storage-keys";
 
 import { updateFilter } from "../../redux/filter/actions";
@@ -43,6 +45,7 @@ export default function FiltersContainer({ priceRange }) {
   const params = useLocation();
 
   const queryTimeout = () => {
+    console.log("query timeout");
     if (waitingTimeout) return;
     setWaitingTimeout(true);
     setTimeout(() => {
@@ -53,18 +56,33 @@ export default function FiltersContainer({ priceRange }) {
       dispatch(fetchFiltered(filterStateRef.current));
       history.push(`/dashboard${populateUrl(filterStateRef.current)}`);
       setWaitingTimeout(false);
-      console.log("search params", params.search);
-      console.log(urlStringToObject(params.search));
     }, 300);
   };
 
   useEffect(() => {
-    if (!isFirstLoad || !waitingTimeout) queryTimeout();
+    if (!isFirstLoad && !waitingTimeout) queryTimeout();
   }, [filterState]);
 
   useEffect(() => {
-    dispatch(fetchAll());
-    setIsFirstLoad(false);
+    const urlState = urlStringToObject(params.search);
+    console.log("urlState", JSON.stringify(urlState));
+    console.log("initialState", JSON.stringify(initialState));
+    if (
+      urlState !== false &&
+      JSON.stringify(urlState) !== JSON.stringify(initialState)
+    ) {
+      setIsFirstLoad(false);
+      console.log("changed state on url");
+      dispatch(updateFilter(urlState));
+    } else {
+      if (JSON.stringify(initialState) !== JSON.stringify(defaultState)) {
+        dispatch(updateFilter(initialState));
+      } else {
+        dispatch(fetchAll());
+      }
+      setIsFirstLoad(false);
+    }
+    // console.log(urlStringToObject(params.search));
   }, []);
 
   const handleTypeOfHouse = (event) => {
