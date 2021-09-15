@@ -8,7 +8,7 @@ export const fetchAll = () => {
     axios.get(`${API.MAIN}${API.PROPERTIES}`).then((response) => {
       dispatch({
         type: SET_DATA,
-        payload: response.data,
+        payload: response.data.data,
       });
     });
   };
