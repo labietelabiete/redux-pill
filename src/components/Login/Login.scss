@@ -1,0 +1,17 @@
+.login-input {
+  width: 400px;
+  border: none;
+  border-bottom: 2px solid #6e6f74;
+}
+.login-input:focus {
+  border: none;
+  border-bottom: 2px solid #ee8434;
+}
+.login-btn{
+  width: 200px;
+  background-color: #ee8434 !important;
+  color: white !important;
+}
+.login-btn:hover {
+  background-color: #d8782e !important;
+}
